@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/",
+  baseURL: "http://localhost:5000",
 });
 
 API.interceptors.request.use((req) => {
@@ -19,11 +19,11 @@ API.interceptors.request.use((req) => {
 
 class APIRequests {
   static async signIn(data) {
-    return await API.post("/users/login", data);
+    return await API.post("/auth/login", data);
   }
 
   static async testGet() {
-    return await API.get("/");
+    return await API.get("/users");
   }
 }
 
