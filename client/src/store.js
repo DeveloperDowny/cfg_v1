@@ -5,6 +5,7 @@ import { counterReducer } from "./reducers/counter";
 const store = configureStore({
   reducer: {
     counter: counterReducer,
+    // userDetails: userDetailsReducer, //TODO
     // Add other slice reducers here
   },
 });
