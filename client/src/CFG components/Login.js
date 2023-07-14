@@ -1,3 +1,4 @@
+import { Formik, Form, Field } from "formik";
 import {
   Flex,
   Box,
@@ -12,34 +13,61 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { object, string } from "yup";
+import APIRequests from "../api";
+import { useNavigate } from "react-router-dom";
+import { ActionTypes, auth } from "../reducers/auth";
+import { useAppDispatch } from "../store";
 
-import { useForm } from "react-hook-form";
+const validationSchema = object({
+  email: string().email("Invalid email address").required("Email is required"),
+  password: string().required("Password is required"),
+});
 
 export default function Login() {
-  const { handleSubmit, register } = useForm();
-  // const handleSubmit = (event) => {
-  //   event.preventDefault(); // Prevent the default form submission behavior
-  //   // Add your form submission logic here, such as making an API request
-  //   // or performing client-side validation
-  //   // For now, let's log the form data to the console
-  //   console.log("FORM DATA", event.target);
-  //   const formData = new FormData(event.target);
-  //   const email = formData.get("email");
-  //   const password = formData.get("password");
-  //   console.log("Email:", email);
-  //   console.log("Password:", password);
-  // };
+  // use history
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (data) => {
-    // Add your form submission logic here, such as making an API request
-    // or performing client-side validation
-    // For now, let's log the form data to the console
-    console.log(data);
+  const navigate = useNavigate();
+  const handleSubmit = async (values) => {
+    console.log(values); // Add your form submission logic here
+    // email password as json hai
+    values.email = "sgarg@gmail.com";
+    values.password = "saneha";
+    const res = await APIRequests.signIn(values).catch((err) => {
+      console.log("Error in SignIn", err);
+    });
+
+    if (!res) {
+      console.log("Error in SignIn");
+      return;
+    }
+
+    console.log("res", res);
+
+    // check how much of it is sent from backend
+
+    //  todo
+    dispatch(
+      auth({
+        result: {
+          name: res.data.name || "",
+          email: values.email || "",
+          token: res.data.token || "",
+          privilege: res.data.privilege || 0,
+          uid: res.data.uid || "",
+        },
+        type: ActionTypes.AUTH,
+      })
+    );
+
+    navigate("/");
+    // navigate to root
   };
+
   return (
     <Flex
       className="t-w-full t-min-h-[calc(100vh-60px)]"
-      // minH={"100vh"}
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
@@ -57,38 +85,49 @@ export default function Login() {
           boxShadow={"lg"}
           p={8}
         >
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={4}>
-              <FormControl id="email">
-                <FormLabel>Email address</FormLabel>
-                <Input type="email" ref={register} />
-              </FormControl>
-              <FormControl id="password">
-                <FormLabel>Password</FormLabel>
-                <Input type="password" ref={register} />
-              </FormControl>
-              <Stack spacing={10}>
-                <Stack
-                  direction={{ base: "column", sm: "row" }}
-                  align={"start"}
-                  justify={"space-between"}
-                >
-                  <Checkbox>Remember me</Checkbox>
-                  <Link color={"blue.400"}>Forgot password?</Link>
+          <Formik
+            initialValues={{ email: "", password: "" }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            <Form>
+              <Stack spacing={4}>
+                <FormControl id="email">
+                  <FormLabel>Email address</FormLabel>
+                  <Field
+                    as={Input}
+                    type="email"
+                    name="email"
+                    autoComplete="email"
+                  />
+                </FormControl>
+                <FormControl id="password">
+                  <FormLabel>Password</FormLabel>
+                  <Field as={Input} type="password" name="password" />
+                </FormControl>
+                <Stack spacing={10}>
+                  <Stack
+                    direction={{ base: "column", sm: "row" }}
+                    align={"start"}
+                    justify={"space-between"}
+                  >
+                    <Checkbox name="rememberMe">Remember me</Checkbox>
+                    <Link color={"blue.400"}>Forgot password?</Link>
+                  </Stack>
+                  <Button
+                    type="submit"
+                    bg={"blue.400"}
+                    color={"white"}
+                    _hover={{
+                      bg: "blue.500",
+                    }}
+                  >
+                    Sign in
+                  </Button>
                 </Stack>
-                <Button
-                  type="submit"
-                  bg={"blue.400"}
-                  color={"white"}
-                  _hover={{
-                    bg: "blue.500",
-                  }}
-                >
-                  Sign in
-                </Button>
               </Stack>
-            </Stack>
-          </form>
+            </Form>
+          </Formik>
         </Box>
       </Stack>
     </Flex>

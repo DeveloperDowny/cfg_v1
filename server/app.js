@@ -6,9 +6,12 @@ app.use(cors());
 
 require("./db/conn");
 const User = require("./models/Schema");
+const auth = require("./middlewares/auth");
+// const { default: auth } = require("./middlewares/auth");
 
 app.use(express.json());
-app.use(require("./Router/Auth"));
+app.use("/auth", require("./Router/Auth"));
+app.use("/api", auth, require("./Router/Auth"));
 
 const PORT = 5000;
 app.listen(PORT, () => {

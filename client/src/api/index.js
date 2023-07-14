@@ -19,7 +19,7 @@ API.interceptors.request.use((req) => {
 
 class APIRequests {
   static async signIn(data) {
-    return await API.post("/users/login", data);
+    return await API.post("/auth/login", data);
   }
 
   static async testGet() {

@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+
 const express = require("express");
 const router = express.Router();
 
@@ -31,6 +33,10 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
+
+  console.log(req.body);
+  // return res.json({ message: "user signed in successfully" });
+  // TODO if successfull then send jwt token
   if (!email || !password) {
     return res.status(400).json({ error: "plz fill data properly" });
   }
@@ -39,7 +45,22 @@ router.post("/login", async (req, res) => {
     if (!userLogin) {
       res.status(400).json({ error: "user error" });
     } else {
-      res.json({ message: "user signed in successfully" });
+      console.log(userLogin);
+      const secretKey = "your_secret_key"; // Replace with your own secret key
+
+      // privilige 0 for superadmin 1 for admin 2 for user
+      // currently hardcoded to 2, change it later []
+      // TODO
+      const token = jwt.sign({ uid: userLogin._id, privilege: 2 }, secretKey, {
+        expiresIn: "24h",
+      });
+      res.json({
+        message: "user signed in successfully",
+        token: token,
+        name: userLogin.name,
+        uid: userLogin._id,
+        privilege: 2,
+      });
     }
   } catch (err) {
     console.log(err);

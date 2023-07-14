@@ -10,7 +10,7 @@ const Home = () => {
     }}
     className='t-cursor-pointer t-bg-blue-500 t-text-white t-p-4'
     >
-      helloworld
+      Hello From Home
     </div>
   )
 }
