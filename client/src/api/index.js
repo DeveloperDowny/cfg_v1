@@ -14,4 +14,17 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const signIn = (data) => API.post("/users/login", data);
+// export const signIn = (data) => API.post("/users/login", data);
+// export const testGet = () => API.get("/");
+
+class APIRequests {
+  static async signIn(data) {
+    return await API.post("/users/login", data);
+  }
+
+  static async testGet() {
+    return await API.get("/");
+  }
+}
+
+export default APIRequests;
