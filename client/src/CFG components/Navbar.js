@@ -24,13 +24,13 @@ import {
 } from "@chakra-ui/icons";
 
 // Import NavItem interface
-import { NavItem } from "./NavItem";
+// import { NavItem } from "./NavItem";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
+    <Box className="t-fixed t-z-[100] t-w-full">
       <Flex
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
@@ -81,7 +81,7 @@ export default function WithSubnavigation() {
             fontSize={"sm"}
             fontWeight={400}
             variant={"link"}
-            href={"#"}
+            href={"/auth/signin"}
           >
             Sign In
           </Button>
@@ -92,7 +92,7 @@ export default function WithSubnavigation() {
             fontWeight={600}
             color={"white"}
             bg={"pink.400"}
-            href={"#"}
+            href={"/auth/signup"}
             _hover={{
               bg: "pink.300",
             }}

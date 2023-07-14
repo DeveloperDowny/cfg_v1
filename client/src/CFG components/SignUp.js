@@ -17,12 +17,13 @@ import {
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-export default function SignupCard() {
+export default function SignupCardOg() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Flex
-      minH={"100vh"}
+      // minH={"100vh"}
+      className="t-min-h-[calc(100vh-60px)]"
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
@@ -92,7 +93,10 @@ export default function SignupCard() {
             </Stack>
             <Stack pt={6}>
               <Text align={"center"}>
-                Already a user? <Link color={"blue.400"}>Login</Link>
+                Already a user?{" "}
+                <Link color={"blue.400"} href="/auth/signin">
+                  Sign In
+                </Link>
               </Text>
             </Stack>
           </Stack>
