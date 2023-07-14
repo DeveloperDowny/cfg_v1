@@ -1,19 +1,19 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Home from "./Components/Home";
 import logo from "./logo.svg";
 import "./App.css";
+import Home from "./components/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import TestComponent from "./components/test";
 
-function App() {
+const App = () => {
   return (
-    <>
+    <BrowserRouter>
       <Routes>
-        <Route exact path="/">
-          <Home />
-        </Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/test" element={<TestComponent />} />
       </Routes>
-    </>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
