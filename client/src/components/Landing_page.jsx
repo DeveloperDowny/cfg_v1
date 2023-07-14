@@ -70,8 +70,8 @@ function Landing_page() {
         </div>
         <br />
         <hr />
-        <Footer />
       </div>
+        <Footer />
     </div>
   )
 }
