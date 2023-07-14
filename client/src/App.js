@@ -6,8 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TestComponent from "./components/test";
 import Test2 from "./components/Test2";
 import Landing_page from "./components/Landing_page";
-import Page from "./components/page";
-
 
 const App = () => {
   return (
@@ -17,7 +15,6 @@ const App = () => {
         <Route path="/test2" element={<Test2 />} />
         <Route path="/test" element={<TestComponent />} />
         <Route path="/Landing_page" element={<Landing_page />} />
-        <Route path="/Page" element={<Page />} />
       </Routes>
     </BrowserRouter>
   );
