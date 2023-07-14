@@ -5,9 +5,12 @@ import Home from "./components/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TestComponent from "./components/test";
 import Test2 from "./components/Test2";
+import Page from "./components/Page";
+import Footer from "./components/Footer";
 import Layout from "./Layout";
 import Login from "./CFG components/Login";
 import SignupCardOg from "./CFG components/SignUp";
+
 
 const App = () => {
   return (
@@ -19,6 +22,8 @@ const App = () => {
           <Route path="/test" element={<TestComponent />} />
           <Route path="/auth/signin" element={<Login />} />
           <Route path="/auth/signup" element={<SignupCardOg />} />
+          <Route path="/Page" element={<Page />} />
+          <Route path="/Footer" element={<Footer />} />
         </Routes>
       </BrowserRouter>
     </Layout>
