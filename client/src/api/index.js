@@ -22,6 +22,10 @@ class APIRequests {
     return await API.post("/auth/login", data);
   }
 
+  static async signUp(data) {
+    return await API.post("/auth/register", data);
+  }
+
   static async testGet() {
     return await API.get("/users");
   }

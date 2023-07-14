@@ -11,6 +11,11 @@ export const UserRole = {
   USER: "USER",
 };
 
+// export const SubmitTypes = {
+//   SIGNUP_SUCCESS: "SIGNUP_SUCCESS",
+//   SIGNUP_FAILURE: "SIGNUP_FAILURE",
+// };
+
 const authSlice = createSlice({
   name: "auth",
   initialState: { authData: {} },
